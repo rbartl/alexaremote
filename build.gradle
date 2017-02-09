@@ -1,0 +1,42 @@
+group 'com.edvbartl.alexafb'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE")
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile ("org.springframework.boot:spring-boot-starter-web") {
+    }
+    compile 'org.codehaus.groovy:groovy-all'
+    compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2"
+    testCompile "junit:junit"
+    compile ("com.amazon.alexa:alexa-skills-kit:1.2") {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+}
+
+bootRun {
+    addResources = true
+}
