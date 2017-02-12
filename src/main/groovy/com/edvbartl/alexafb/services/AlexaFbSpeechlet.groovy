@@ -33,6 +33,8 @@ class AlexaFbSpeechlet implements Speechlet {
             leiser:'volume-down',
             "nach oben":'direction-up',
             "nach unten":'direction-down',
+            "rauf":'direction-up',
+            "runter":'direction-down',
             oben:'direction-up',
             unten:'direction-down',
             "nach rechts":'direction-right',
@@ -58,9 +60,11 @@ class AlexaFbSpeechlet implements Speechlet {
             neun:'9',
             null:'0',
             zero:'0',
+            raus: 'exit',
+            beenden: 'exit',
             exit:'exit',
-            zurueck:'exit',
-            "zurück": "exit",
+            zurueck:'back',
+            "zurück": "back",
             "menü": "menu",
             "stop": "stop",
             "rot": "red",
@@ -120,7 +124,8 @@ class AlexaFbSpeechlet implements Speechlet {
 
         log.info("request:" + request.getIntent())
         log.info("slots:" + request.getIntent().slots)
-        if ("CommandoIntent".equals(request.getIntent().name)) {
+        if ("MultiCommandoIntent".equals(request.getIntent().name)||
+                "CommandoIntent".equals(request.getIntent().name)) {
             if (request.getIntent().slots) for (def slot : request.getIntent().slots) {
                 log.info("slot value:"  + slot.value.value )
                 if (commandMap.containsKey(slot.value.value)) {
@@ -134,18 +139,29 @@ class AlexaFbSpeechlet implements Speechlet {
                 }
             }
         }
-        if ("MultiCommandoIntent".equals(request.getIntent().name)) {
+        if ("DuplicateCommandoIntent".equals(request.getIntent().name)) {
+            String samount
+            int amount = 0
+            String slotcommand
             if (request.getIntent().slots) for (def slot : request.getIntent().slots) {
-                log.info("slot value:"  + slot.value.value )
-                if (commandMap.containsKey(slot.value.value)) {
-                    def command = commandMap[slot.value.value]
-                    def channel = "command"
-                    if (command.contains(".")) {
-                        channel = command.split("\\.")[0]
-                        command = command.split("\\.")[1]
-                    }
-                    mqttService.publish(channel, command)
+                if ("amount" == slot.key) {
+                    samount = slot.value.value
+                    amount = Integer.parseInt(samount)
                 }
+                if ("command" == slot.key) {
+                    slotcommand = slot.value.value
+                }
+            }
+            if (commandMap.containsKey(slotcommand)) {
+                def command = commandMap[slotcommand]
+                def channel = "command"
+                if (command.contains(".")) {
+                    channel = command.split("\\.")[0]
+                    command = command.split("\\.")[1]
+                }
+                amount.times({
+                    mqttService.publish(channel, command)
+                })
             }
         }
 
