@@ -9,7 +9,10 @@ import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.*;
 import org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 		PropertyPlaceholderAutoConfiguration.class,
 		ThymeleafAutoConfiguration.class,
 		WebMvcAutoConfiguration.class,
-		WebSocketAutoConfiguration.class,
+		WebSocketAutoConfiguration.class
 })
+@Configuration
+@ComponentScan
 public class AlexaFbApplication {
 
 

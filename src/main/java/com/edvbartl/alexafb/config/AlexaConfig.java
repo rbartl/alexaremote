@@ -30,7 +30,7 @@ public class AlexaConfig {
         servlet = new SpeechletServlet();
         servlet.setSpeechlet(alexaFbSpeechlet);
 
-        final ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(servlet, "/skillsTest/index");
+        final ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(servlet, "/skill/index");
 
         return servletRegistrationBean;
 

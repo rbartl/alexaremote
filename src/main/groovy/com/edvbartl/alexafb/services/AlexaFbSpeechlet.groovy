@@ -17,6 +17,7 @@ import com.amazon.speech.speechlet.Speechlet
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Service;
 
 @Service
@@ -133,6 +134,22 @@ class AlexaFbSpeechlet implements Speechlet {
                 }
             }
         }
+        if ("MultiCommandoIntent".equals(request.getIntent().name)) {
+            if (request.getIntent().slots) for (def slot : request.getIntent().slots) {
+                log.info("slot value:"  + slot.value.value )
+                if (commandMap.containsKey(slot.value.value)) {
+                    def command = commandMap[slot.value.value]
+                    def channel = "command"
+                    if (command.contains(".")) {
+                        channel = command.split("\\.")[0]
+                        command = command.split("\\.")[1]
+                    }
+                    mqttService.publish(channel, command)
+                }
+            }
+        }
+
+
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
         // Create the Simple card content.

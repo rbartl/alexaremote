@@ -10,6 +10,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct
@@ -26,6 +27,9 @@ class MqttService implements MqttCallback,InitializingBean {
 
     }
 
+    @Value('${mqtt.appname}')
+    String appname
+
     void startupClient() throws Exception {
         log.error("sdfsdf")
         log.info ("starting Mqtt client")
@@ -37,7 +41,7 @@ class MqttService implements MqttCallback,InitializingBean {
         conOpt.setUserName("username")
 
         // Construct an MQTT blocking mode client
-        client = new MqttClient("tcp://iot.localdomain:1883", "alexaapp", dataStore);
+        client = new MqttClient("tcp://iot.localdomain:1883", appname, dataStore);
         client.connect(conOpt)
 
         // Set this wrapper as the callback handler
