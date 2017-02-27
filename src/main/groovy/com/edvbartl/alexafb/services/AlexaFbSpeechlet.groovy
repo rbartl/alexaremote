@@ -66,6 +66,7 @@ class AlexaFbSpeechlet implements Speechlet {
             zurueck:'back',
             "zurück": "back",
             "menü": "menu",
+            "menü öffnen": "menu",
             "stop": "stop",
             "rot": "red",
             "grün": "green",
