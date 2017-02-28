@@ -24,7 +24,6 @@ nbdist/
 .nb-gradle/
 *~
 
-src/main/webapp
 .gradle
 classes
 .mvn
