@@ -44,6 +44,7 @@ class AlexaFbSpeechlet implements Speechlet {
             ausschalten:'activities/poweroff/command.off',
             pause:'pause',
             play:'play',
+            weiter:'play',
             spiel:'play',
             spielab: 'play',
             ok:'select',
