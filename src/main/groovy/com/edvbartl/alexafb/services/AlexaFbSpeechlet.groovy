@@ -76,10 +76,10 @@ class AlexaFbSpeechlet implements Speechlet {
             fernsehen: 'activities/watch-tv/command.on',
             "fernsehen einschalten": 'activities/watch-tv/command.on',
             "fernseher einschalten": 'activities/watch-tv/command.on',
-            "fire tv sehen": 'activities/fire-tv-sehen/command.on',
-            "fire tv schauen": 'activities/fire-tv-sehen/command.on',
-            "fire tv einschalten": 'activities/fire-tv-sehen/command.on',
-            "fire t. v. einschalten": 'activities/fire-tv-sehen/command.on',
+            "fire tv sehen": 'activities/fire-tv/command.on',
+            "fire tv schauen": 'activities/fire-tv/command.on',
+            "fire tv einschalten": 'activities/fire-tv/command.on',
+            "fire t. v. einschalten": 'activities/fire-tv/command.on',
     ]
 
     /**
