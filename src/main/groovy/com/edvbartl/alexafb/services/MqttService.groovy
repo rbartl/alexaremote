@@ -41,7 +41,7 @@ class MqttService implements MqttCallback,InitializingBean {
         conOpt.setUserName("username")
 
         // Construct an MQTT blocking mode client
-        client = new MqttClient("tcp://iot.localdomain:1883", appname, dataStore);
+        client = new MqttClient("tcp://localhost:1883", appname, dataStore);
         client.connect(conOpt)
 
         // Set this wrapper as the callback handler
